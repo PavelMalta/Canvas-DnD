@@ -1,0 +1,15 @@
+.app {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.fieldsContainer {
+    text-align: center;
+    display: flex;
+    width: 80vw;
+}
+
