@@ -12,7 +12,7 @@ export const squareStyle = {
     width: "100px",
     height: "100px",
     backgroundColor: 'green',
-    margin: '10px',
+    margin: '30px',
 }
 const figures = [{id: "1", isCanvas: false, style: circleStyle}, {id: "2", isCanvas: false, style: squareStyle}]
 
