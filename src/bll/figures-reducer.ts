@@ -20,7 +20,8 @@ const initialState = {
     figures: figures,
     draggableFigureId: "",
     copyStatus: true,
-    canvasFigures: [] as Array<FigureType>
+    canvasFigures: [] as Array<FigureType>,
+    chooseFigureId: ""
 }
 
 export const figuresReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -35,6 +36,10 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
             let draggableFigure = state.figures.find(i => i.id === state.draggableFigureId) as FigureType
             let newCanvasFigure = {...draggableFigure, id: v1(), isCanvas: true}
             return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}
+        case "CHOOSE-FIGURE" :
+            return {...state, chooseFigureId: action.figureId}
+        case "DELETE-FIGURE" :
+            return {...state, canvasFigures: state.canvasFigures.filter(i => i.id !== state.chooseFigureId)}
         default:
             return state
     }
@@ -45,6 +50,8 @@ export const dragStartedAC = (figureId: string) => ({type: "DRAG-STARTED", figur
 export const changeCanvasStatusAC = () => ({type: "CHANGE-CANVAS-STATUS"} as const)
 export const changeCopyStatusAC = (status: boolean) => ({type: "CHANGE-COPY-STATUS", status} as const)
 export const addFigureAC = () => ({type: "ADD-FIGURE"} as const)
+export const deleteFigureAC = () => ({type: "DELETE-FIGURE"} as const)
+export const chooseFigureAC = (figureId: string) => ({type: "CHOOSE-FIGURE", figureId} as const)
 
 
 //Types
@@ -53,11 +60,14 @@ type InitialStateType = {
     draggableFigureId: string
     copyStatus: boolean
     canvasFigures: Array<FigureType>
+    chooseFigureId: string
 }
 type ActionType = ReturnType<typeof dragStartedAC>
                 | ReturnType<typeof changeCanvasStatusAC>
                 | ReturnType<typeof changeCopyStatusAC>
                 | ReturnType<typeof addFigureAC>
+                | ReturnType<typeof deleteFigureAC>
+                | ReturnType<typeof chooseFigureAC>
 
 export type FigureType = {
     id: string
