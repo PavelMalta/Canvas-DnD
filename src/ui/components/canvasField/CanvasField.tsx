@@ -5,6 +5,9 @@ export const CanvasField = () => {
     return (
         <div className={s.canvasField}>
             <h1>Canvas</h1>
+            <div className={s.canvasContainer}>
+                <canvas></canvas>
+            </div>
         </div>
     )
 }
