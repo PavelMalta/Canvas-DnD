@@ -3,7 +3,7 @@ import {FigureType} from "../../../../bll/figures-reducer";
 
 type FigurePropsType = {
     figureData: FigureType
-    startDragging: (figureId: number) => void
+    startDragging: (figureId: string) => void
 }
 
 export const Figure: React.FC<FigurePropsType> = ({figureData, startDragging}) => {

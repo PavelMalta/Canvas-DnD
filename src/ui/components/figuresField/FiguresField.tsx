@@ -10,7 +10,7 @@ export const FiguresField = () => {
     const figures = useSelector<AppRootStateType, Array<FigureType>>(state => state.figures.figures)
     const dispatch = useDispatch()
 
-    const startDragging = (figureId: number) => {
+    const startDragging = (figureId: string) => {
         dispatch(dragStartedAC(figureId))
     }
 
