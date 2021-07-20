@@ -1,4 +1,3 @@
-
 export const circleStyle = {
     width: "100px",
     height: "100px",
@@ -13,28 +12,32 @@ export const squareStyle = {
     backgroundColor: 'green',
     margin: '10px',
 }
+const figures = [{id: 1, isCanvas: false, style: circleStyle}, {id: 2, isCanvas: false, style: squareStyle}]
 
 const initialState = {
-figure: [{id: 1, isCanvas: false, style: circleStyle}, {id: 1, isCanvas: false, style: squareStyle}]
+    figures: figures,
+    draggableFigureId: null
 }
 
 export const figuresReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
-    switch (action) {
-        case "" :
-            return state
+    switch (action.type) {
+        case "DRAG-STARTED" :
+            return {...state, draggableFigureId: action.figureId}
         default:
             return state
     }
 }
 
+//Actions
+export const dragStartedAC = (figureId: number) => ({type: "DRAG-STARTED", figureId} as const)
+
 
 //Types
 type InitialStateType = {
-    figure: Array<FigureType>
+    figures: Array<FigureType>,
+    draggableFigureId: null | number
 }
-type ActionType = {
-
-}
+type ActionType = ReturnType<typeof dragStartedAC>
 
 export type FigureType = {
     id: number

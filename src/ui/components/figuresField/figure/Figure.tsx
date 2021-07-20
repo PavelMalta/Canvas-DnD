@@ -3,12 +3,18 @@ import {FigureType} from "../../../../bll/figures-reducer";
 
 type FigurePropsType = {
     figureData: FigureType
+    startDragging: (figureId: number) => void
 }
 
-export const Figure: React.FC<FigurePropsType> = ({figureData}) => {
+export const Figure: React.FC<FigurePropsType> = ({figureData, startDragging}) => {
+
+    const dragStartHandler = () => {
+        startDragging(figureData.id)
+    }
+
     return (
         <div draggable style={{display: "flex", flexDirection: "column"}}>
-            <div draggable style={figureData.style}>
+            <div draggable style={figureData.style} onDragStart={dragStartHandler}>
             </div>
         </div>
     )
