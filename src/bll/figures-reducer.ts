@@ -3,16 +3,16 @@ import { v1 } from "uuid"
 export const circleStyle = {
     width: "100px",
     height: "100px",
-    backgroundColor: 'blue',
-    borderRadius: '50%',
-    margin: '30px'
+    backgroundColor: "blue",
+    borderRadius: "50%",
+    margin: "30px"
 }
 
 export const squareStyle = {
     width: "100px",
     height: "100px",
-    backgroundColor: 'green',
-    margin: '30px',
+    backgroundColor: "green",
+    margin: "30px",
 }
 const figures = [{id: "1", isCanvas: false, style: circleStyle}, {id: "2", isCanvas: false, style: squareStyle}]
 

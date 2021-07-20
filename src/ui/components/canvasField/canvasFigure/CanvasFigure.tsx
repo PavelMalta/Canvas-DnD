@@ -2,11 +2,12 @@ import React, {MouseEvent, DragEvent} from "react";
 import {FigureType} from "../../../../bll/figures-reducer";
 
 type CanvasFigurePropsType = {
+    chooseFigureId: string
     figureData: FigureType
     chooseFigure: (figureId: string) => void
 }
 
-export const CanvasFigure: React.FC<CanvasFigurePropsType> = ({figureData, chooseFigure}) => {
+export const CanvasFigure: React.FC<CanvasFigurePropsType> = ({chooseFigureId, figureData, chooseFigure}) => {
 
     const chooseFigureHandler = (e: MouseEvent<HTMLDivElement>) => {
         if (e.button === 0) {
@@ -14,9 +15,11 @@ export const CanvasFigure: React.FC<CanvasFigurePropsType> = ({figureData, choos
         }
     }
 
+    const styleFigure =  chooseFigureId === figureData.id ? {...figureData.style, border: "3px solid black"} : figureData.style
+
     return (
         <div draggable>
-            <div style={figureData.style} onClick={chooseFigureHandler}>
+            <div style={styleFigure} onClick={chooseFigureHandler}>
             </div>
         </div>
     )
