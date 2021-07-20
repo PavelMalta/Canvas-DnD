@@ -1,9 +1,10 @@
-import React, {DragEvent} from "react";
+import React, {DragEvent, useRef} from "react";
 import s from "./CanvasField.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../bll/store";
 import {addFigureAC, changeCopyStatusAC, chooseFigureAC, FigureType} from "../../../bll/figures-reducer";
 import {CanvasFigure} from "./canvasFigure/CanvasFigure";
+import {Canvas} from "./canvasFigure/canvas/Canvas";
 
 export const CanvasField = () => {
 
@@ -33,14 +34,14 @@ export const CanvasField = () => {
     return (
         <div className={s.canvasField} onDrop={addFigureHandler} onDragStart={changeStatusHandler}>
             <h1>Canvas</h1>
-            <div className={s.canvasContainer}>
+           {/* <div className={s.canvasContainer}>
                 {canvasFigures.map(item => <CanvasFigure
                                                 key={item.id}
                                                 chooseFigureId={chooseFigureId}
                                                 figureData={item}
                                                 chooseFigure={chooseFigure}/>)}
-                {/*<canvas></canvas>*/}
-            </div>
+            </div>*/}
+            <Canvas/>
         </div>
     )
 }
