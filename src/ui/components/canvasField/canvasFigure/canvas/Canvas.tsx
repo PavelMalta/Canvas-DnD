@@ -13,7 +13,7 @@ export const Canvas = () => {
 
     //HOOK
     const canvasRef = useRef<any>(null)
-    const [mouse, setMouse] = useState({})
+    const [mouse, setMouse] = useState(true)
     const [selected, setSelected] = useState<CanvasFigureType | {}>({})
     const dispatch = useDispatch()
     const canvasFigures = useSelector<AppRootStateType, Array<CanvasFigureType>>(state => state.figures.canvasFigures)
@@ -72,7 +72,7 @@ export const Canvas = () => {
         const y = e.pageY - canvasRef.current.offsetTop
 
         let isCursorOnAnyFigure = false
-        setMouse(prevMouse => ({ ...prevMouse, down: true }))
+        setMouse(true)
         canvasFigures.forEach(figure => {
             // @ts-ignore
             if (cursorInFigure(x, y, figure)) {
@@ -88,10 +88,7 @@ export const Canvas = () => {
 
     }
     const onMouseUp = () => {
-        setMouse(prevMouse => ({
-            ...prevMouse,
-            down: false
-        }))
+        setMouse(false)
     }
     const onMouseMove = (e: any) => {
         e.stopPropagation()
@@ -99,13 +96,9 @@ export const Canvas = () => {
         const x = e.pageX - canvasRef.current.offsetLeft
         const y = e.pageY - canvasRef.current.offsetTop
 
-        setMouse(prevMouse => ({
-            ...prevMouse,
-            x,
-            y,
-            out: false
-        }))
-        if (selected) {
+       /* setMouse()*/
+
+        if (selected && mouse) {
            dispatch(setFiguresAC(canvasFigures.map(figure => {
                 if (figure === selected) {
                     figure.x = x - figureWidth / 2
