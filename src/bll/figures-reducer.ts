@@ -20,7 +20,7 @@ const initialState = {
     figures: figures,
     draggableFigureId: "",
     copyStatus: true,
-    canvasFigures: [] as Array<FigureType>,
+    canvasFigures: [] as Array<CanvasFigureType>,
     chooseFigureId: ""
 }
 
@@ -33,9 +33,10 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
         case "CHANGE-COPY-STATUS" :
             return {...state, copyStatus: action.status}
         case "ADD-FIGURE" :
-            let draggableFigure = state.figures.find(i => i.id === state.draggableFigureId) as FigureType
+            /*let draggableFigure = state.figures.find(i => i.id === state.draggableFigureId) as FigureType
             let newCanvasFigure = {...draggableFigure, id: v1(), isCanvas: true}
-            return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}
+            return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}*/
+            return state
         case "CHOOSE-FIGURE" :
             return {...state, chooseFigureId: action.figureId}
         case "DELETE-FIGURE" :
@@ -59,7 +60,7 @@ type InitialStateType = {
     figures: Array<FigureType>
     draggableFigureId: string
     copyStatus: boolean
-    canvasFigures: Array<FigureType>
+    canvasFigures: Array<CanvasFigureType>
     chooseFigureId: string
 }
 type ActionType = ReturnType<typeof dragStartedAC>
@@ -73,4 +74,11 @@ export type FigureType = {
     id: string
     isCanvas: boolean
     style: {}
+}
+
+export type CanvasFigureType = {
+    x: number
+    y: number
+    type: string
+    id: string
 }
