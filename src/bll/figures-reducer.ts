@@ -36,7 +36,7 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
             return {...state, copyStatus: action.status}
         case "ADD-FIGURE" :
             let draggableFigure = state.figures.find(i => i.id === state.draggableFigureId) as FigureType
-            let newCanvasFigure = {x: action.x, y: action.y, type: draggableFigure.style === circleStyle ? 'circle' : 'square',id: v1()}
+            let newCanvasFigure = {x: action.x, y: action.y, type: draggableFigure.id === '1' ? 'circle' : 'square',id: v1()}
             return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}
         case "CHOOSE-FIGURE" :
             return {...state, chooseFigure: action.figure}
