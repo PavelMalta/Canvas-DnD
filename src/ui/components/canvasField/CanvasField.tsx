@@ -20,14 +20,14 @@ export const CanvasField = () => {
     const canvasFigures = useSelector<AppRootStateType, Array<CanvasFigureType>>(state => state.figures.canvasFigures)
     const dispatch = useDispatch()
 
-    const addFigureHandler = (e: DragEvent<HTMLDivElement>) => {
+   /* const addFigureHandler = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()
         e.stopPropagation()
         if (!copyStatus) {
             return
         }
-        dispatch(addFigureAC())
-    }
+        dispatch(addFigureAC(e.clientX-485, e.clientY-181))
+    }*/
 
     const chooseFigure = (figureId: string) => {
         dispatch(chooseFigureAC(figureId))
@@ -38,7 +38,7 @@ export const CanvasField = () => {
     }
 
     return (
-        <div className={s.canvasField} onDrop={addFigureHandler} onDragStart={changeStatusHandler}>
+        <div className={s.canvasField} onDragStart={changeStatusHandler}>
             <h1>Canvas</h1>
            {/* <div className={s.canvasContainer}>
                 {canvasFigures.map(item => <CanvasFigure

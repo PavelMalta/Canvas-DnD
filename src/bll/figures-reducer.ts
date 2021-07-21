@@ -5,7 +5,8 @@ export const circleStyle = {
     height: "100px",
     backgroundColor: "blue",
     borderRadius: "50%",
-    margin: "30px"
+    margin: "30px",
+    border: "1px solid black"
 }
 
 export const squareStyle = {
@@ -13,6 +14,7 @@ export const squareStyle = {
     height: "100px",
     backgroundColor: "green",
     margin: "30px",
+    border: "1px solid black"
 }
 const figures = [{id: "1", isCanvas: false, style: circleStyle}, {id: "2", isCanvas: false, style: squareStyle}]
 
@@ -33,10 +35,9 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
         case "CHANGE-COPY-STATUS" :
             return {...state, copyStatus: action.status}
         case "ADD-FIGURE" :
-            /*let draggableFigure = state.figures.find(i => i.id === state.draggableFigureId) as FigureType
-            let newCanvasFigure = {...draggableFigure, id: v1(), isCanvas: true}
-            return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}*/
-            return state
+            let draggableFigure = state.figures.find(i => i.id === state.draggableFigureId) as FigureType
+            let newCanvasFigure = {x: action.x, y: action.y, type: draggableFigure.style === circleStyle ? 'circle' : 'square',id: v1()}
+            return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}
         case "CHOOSE-FIGURE" :
             return {...state, chooseFigureId: action.figureId}
         case "DELETE-FIGURE" :
@@ -50,7 +51,7 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
 export const dragStartedAC = (figureId: string) => ({type: "DRAG-STARTED", figureId} as const)
 export const changeCanvasStatusAC = () => ({type: "CHANGE-CANVAS-STATUS"} as const)
 export const changeCopyStatusAC = (status: boolean) => ({type: "CHANGE-COPY-STATUS", status} as const)
-export const addFigureAC = () => ({type: "ADD-FIGURE"} as const)
+export const addFigureAC = (x: number, y: number) => ({type: "ADD-FIGURE", x, y} as const)
 export const deleteFigureAC = () => ({type: "DELETE-FIGURE"} as const)
 export const chooseFigureAC = (figureId: string) => ({type: "CHOOSE-FIGURE", figureId} as const)
 

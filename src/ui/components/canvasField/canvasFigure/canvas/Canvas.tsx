@@ -1,11 +1,11 @@
-import React, {DragEvent, useEffect, useRef} from "react";
+import React, {DragEvent, useEffect, useRef, useState} from "react";
 import s from "../../CanvasField.module.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../../bll/store";
-import {FigureType} from "../../../../../bll/figures-reducer";
+import {addFigureAC, CanvasFigureType} from "../../../../../bll/figures-reducer";
 
-const width = 600;
-const height = 600;
+const width = 730;
+const height = 650;
 
 export const Canvas = () => {
     const figureWidth = 100;
@@ -13,10 +13,10 @@ export const Canvas = () => {
 
     //HOOK
     const canvasRef = useRef<any>(null)
-   // const canvasFigures = useSelector<AppRootStateType, Array<FigureType>>(state => state.figures.canvasFigures)
-    const canvasFigures = [{x: 20, y: 10, type: "circle", id: "21"},
-                            {x: 100, y: 100, type: "square", id: "211"},
-                            {x: 200, y: 100, type: "circle", id: "231"}]
+    const [mouse, setMouse] = useState({})
+    const dispatch = useDispatch()
+    const canvasFigures = useSelector<AppRootStateType, Array<CanvasFigureType>>(state => state.figures.canvasFigures)
+    const copyStatus = useSelector<AppRootStateType, boolean>(state => state.figures.copyStatus)
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -68,10 +68,16 @@ export const Canvas = () => {
 
     }
     const onMouseUp = () => {
-
+        setMouse(prevMouse => ({
+            ...prevMouse,
+            down: false
+        }))
     }
     const onMouseMove = () => {
-
+        setMouse(prevMouse => ({
+            ...prevMouse,
+            out: false
+        }))
     }
     const onMouseOut = () => {
 
@@ -79,8 +85,15 @@ export const Canvas = () => {
     const onMouseEnter = () => {
 
     }
-    const onDrop = () => {
-
+    const onDrop = (e: DragEvent<HTMLCanvasElement>) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const x = e.pageX - canvasRef.current.offsetLeft - figureWidth / 2
+        const y = e.pageY - canvasRef.current.offsetTop - figureHeight / 2
+        if (!copyStatus) {
+            return
+        }
+        dispatch(addFigureAC(x, y))
     }
 
 
