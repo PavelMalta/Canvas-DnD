@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/Canvas-DnD/static/css/main.d757187b.chunk.css",
+    "main.css": "/Canvas-DnD/static/css/main.2f41a781.chunk.css",
     "main.js": "/Canvas-DnD/static/js/main.2490c0c9.chunk.js",
     "main.js.map": "/Canvas-DnD/static/js/main.2490c0c9.chunk.js.map",
     "runtime-main.js": "/Canvas-DnD/static/js/runtime-main.266d0596.js",
@@ -10,13 +10,13 @@
     "static/js/3.7f02f3ac.chunk.js": "/Canvas-DnD/static/js/3.7f02f3ac.chunk.js",
     "static/js/3.7f02f3ac.chunk.js.map": "/Canvas-DnD/static/js/3.7f02f3ac.chunk.js.map",
     "index.html": "/Canvas-DnD/index.html",
-    "static/css/main.d757187b.chunk.css.map": "/Canvas-DnD/static/css/main.d757187b.chunk.css.map",
+    "static/css/main.2f41a781.chunk.css.map": "/Canvas-DnD/static/css/main.2f41a781.chunk.css.map",
     "static/js/2.f0568ca4.chunk.js.LICENSE.txt": "/Canvas-DnD/static/js/2.f0568ca4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.266d0596.js",
     "static/js/2.f0568ca4.chunk.js",
-    "static/css/main.d757187b.chunk.css",
+    "static/css/main.2f41a781.chunk.css",
     "static/js/main.2490c0c9.chunk.js"
   ]
 }
