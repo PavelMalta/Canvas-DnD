@@ -27,7 +27,7 @@ export const Canvas = () => {
         canvasFigures.forEach(figure => {
             drawFigure(figure, ctx)
         })
-    },[canvasFigures])
+    },[canvasFigures, selected])
 
     const drawFigure = (figure: any, context: any) => {
         context.lineWidth = 1;
