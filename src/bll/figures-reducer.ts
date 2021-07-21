@@ -42,6 +42,8 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
             return {...state, chooseFigureId: action.figureId}
         case "DELETE-FIGURE" :
             return {...state, canvasFigures: state.canvasFigures.filter(i => i.id !== state.chooseFigureId)}
+        case "SET-FIGURES" :
+            return {...state, canvasFigures: action.figures}
         default:
             return state
     }
@@ -54,6 +56,7 @@ export const changeCopyStatusAC = (status: boolean) => ({type: "CHANGE-COPY-STAT
 export const addFigureAC = (x: number, y: number) => ({type: "ADD-FIGURE", x, y} as const)
 export const deleteFigureAC = () => ({type: "DELETE-FIGURE"} as const)
 export const chooseFigureAC = (figureId: string) => ({type: "CHOOSE-FIGURE", figureId} as const)
+export const setFiguresAC = (figures: Array<CanvasFigureType>) => ({type: "SET-FIGURES", figures} as const)
 
 
 //Types
@@ -70,6 +73,7 @@ type ActionType = ReturnType<typeof dragStartedAC>
                 | ReturnType<typeof addFigureAC>
                 | ReturnType<typeof deleteFigureAC>
                 | ReturnType<typeof chooseFigureAC>
+                | ReturnType<typeof setFiguresAC>
 
 export type FigureType = {
     id: string

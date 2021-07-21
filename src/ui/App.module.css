@@ -13,3 +13,12 @@
     width: 80vw;
 }
 
+.buttonContainer button {
+    margin-top: 30px;
+    background: #903;
+    color: white;
+    border: 1px solid #990033;
+    width: 130px;
+    height: 40px;
+    font-size: 17px;
+}

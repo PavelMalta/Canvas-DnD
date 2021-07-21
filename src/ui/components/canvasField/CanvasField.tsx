@@ -15,19 +15,8 @@ import {Canvas} from "./canvasFigure/canvas/Canvas";
 export const CanvasField = () => {
 
     //HOOK
-    const copyStatus = useSelector<AppRootStateType, boolean>(state => state.figures.copyStatus)
     const chooseFigureId = useSelector<AppRootStateType, string>(state => state.figures.chooseFigureId)
-    const canvasFigures = useSelector<AppRootStateType, Array<CanvasFigureType>>(state => state.figures.canvasFigures)
     const dispatch = useDispatch()
-
-   /* const addFigureHandler = (e: DragEvent<HTMLDivElement>) => {
-        e.preventDefault()
-        e.stopPropagation()
-        if (!copyStatus) {
-            return
-        }
-        dispatch(addFigureAC(e.clientX-485, e.clientY-181))
-    }*/
 
     const chooseFigure = (figureId: string) => {
         dispatch(chooseFigureAC(figureId))

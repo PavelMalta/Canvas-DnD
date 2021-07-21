@@ -1,8 +1,8 @@
-import React, {DragEvent, useEffect, useRef, useState} from "react";
+import React, {DragEvent, MouseEventHandler, useEffect, useRef, useState} from "react";
 import s from "../../CanvasField.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../../bll/store";
-import {addFigureAC, CanvasFigureType} from "../../../../../bll/figures-reducer";
+import {addFigureAC, CanvasFigureType, chooseFigureAC, setFiguresAC} from "../../../../../bll/figures-reducer";
 
 const width = 730;
 const height = 650;
@@ -14,6 +14,7 @@ export const Canvas = () => {
     //HOOK
     const canvasRef = useRef<any>(null)
     const [mouse, setMouse] = useState({})
+    const [selected, setSelected] = useState<CanvasFigureType | {}>({})
     const dispatch = useDispatch()
     const canvasFigures = useSelector<AppRootStateType, Array<CanvasFigureType>>(state => state.figures.canvasFigures)
     const copyStatus = useSelector<AppRootStateType, boolean>(state => state.figures.copyStatus)
@@ -26,13 +27,13 @@ export const Canvas = () => {
         canvasFigures.forEach(figure => {
             drawFigure(figure, ctx)
         })
-    })
+    },[canvasFigures])
 
     const drawFigure = (figure: any, context: any) => {
         context.lineWidth = 1;
-       /* if (figure === selected) {
+        if (figure === selected) {
             context.lineWidth = 4
-        }*/
+        }
         context.strokeStyle = '#000'
         if (figure.type === "square") {
 
@@ -58,13 +59,32 @@ export const Canvas = () => {
         }
 
     }
+    const cursorInFigure = (x: number, y: number, figure: CanvasFigureType) => x > figure.x && x < figure.x + figureWidth && y > figure.y && y < figure.y + figureHeight
 
 
 
     const onDragOver = (e: DragEvent<HTMLCanvasElement>) => {
         e.preventDefault()
     }
-    const onMouseDown = () => {
+    const onMouseDown = (e: any) => {
+        e.stopPropagation()
+        const x = e.pageX - canvasRef.current.offsetLeft
+        const y = e.pageY - canvasRef.current.offsetTop
+
+        let isCursorOnAnyFigure = false
+        setMouse(prevMouse => ({ ...prevMouse, down: true }))
+        canvasFigures.forEach(figure => {
+            // @ts-ignore
+            if (cursorInFigure(x, y, figure)) {
+                setSelected(figure)
+                dispatch(chooseFigureAC(figure.id))
+                isCursorOnAnyFigure = true;
+            }
+        })
+
+        if (!isCursorOnAnyFigure) {
+            setSelected(false)
+        }
 
     }
     const onMouseUp = () => {
@@ -73,12 +93,29 @@ export const Canvas = () => {
             down: false
         }))
     }
-    const onMouseMove = () => {
+    const onMouseMove = (e: any) => {
+        e.stopPropagation()
+
+        const x = e.pageX - canvasRef.current.offsetLeft
+        const y = e.pageY - canvasRef.current.offsetTop
+
         setMouse(prevMouse => ({
             ...prevMouse,
+            x,
+            y,
             out: false
         }))
+        if (selected) {
+           dispatch(setFiguresAC(canvasFigures.map(figure => {
+                if (figure === selected) {
+                    figure.x = x - figureWidth / 2
+                    figure.y = y - figureHeight / 2
+                }
+                return figure
+            })))
+        }
     }
+
     const onMouseOut = () => {
 
     }

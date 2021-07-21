@@ -22,6 +22,9 @@ function App() {
             <FiguresField/>
             <CanvasField/>
         </div>
+        <div className={s.buttonContainer}>
+            <button onClick={deleteCanvasFigure}>Delete Figure</button>
+        </div>
     </div>
   );
 }
