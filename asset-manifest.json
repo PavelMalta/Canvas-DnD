@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Canvas-DnD/static/css/main.d757187b.chunk.css",
-    "main.js": "/Canvas-DnD/static/js/main.cf7dbe71.chunk.js",
-    "main.js.map": "/Canvas-DnD/static/js/main.cf7dbe71.chunk.js.map",
+    "main.js": "/Canvas-DnD/static/js/main.2490c0c9.chunk.js",
+    "main.js.map": "/Canvas-DnD/static/js/main.2490c0c9.chunk.js.map",
     "runtime-main.js": "/Canvas-DnD/static/js/runtime-main.266d0596.js",
     "runtime-main.js.map": "/Canvas-DnD/static/js/runtime-main.266d0596.js.map",
     "static/js/2.f0568ca4.chunk.js": "/Canvas-DnD/static/js/2.f0568ca4.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.266d0596.js",
     "static/js/2.f0568ca4.chunk.js",
     "static/css/main.d757187b.chunk.css",
-    "static/js/main.cf7dbe71.chunk.js"
+    "static/js/main.2490c0c9.chunk.js"
   ]
 }
