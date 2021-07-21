@@ -17,7 +17,7 @@ function App() {
     }
 
   return (
-    <div className={s.app} onDragOver={onDragOverHandler} onDrop={deleteCanvasFigure}>
+    <div className={s.app} onDragOver={onDragOverHandler}>
         <div className={s.fieldsContainer}>
             <FiguresField/>
             <CanvasField/>

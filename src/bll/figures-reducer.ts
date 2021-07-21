@@ -23,7 +23,7 @@ const initialState = {
     draggableFigureId: "",
     copyStatus: true,
     canvasFigures: [] as Array<CanvasFigureType>,
-    chooseFigureId: ""
+    chooseFigure: {} as CanvasFigureType
 }
 
 export const figuresReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -39,9 +39,9 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
             let newCanvasFigure = {x: action.x, y: action.y, type: draggableFigure.style === circleStyle ? 'circle' : 'square',id: v1()}
             return {...state, canvasFigures: [...state.canvasFigures, newCanvasFigure]}
         case "CHOOSE-FIGURE" :
-            return {...state, chooseFigureId: action.figureId}
+            return {...state, chooseFigure: action.figure}
         case "DELETE-FIGURE" :
-            return {...state, canvasFigures: state.canvasFigures.filter(i => i.id !== state.chooseFigureId)}
+            return {...state, canvasFigures: state.canvasFigures.filter(i => i.id !== state.chooseFigure.id), chooseFigure: {} as CanvasFigureType}
         case "SET-FIGURES" :
             return {...state, canvasFigures: action.figures}
         default:
@@ -55,7 +55,7 @@ export const changeCanvasStatusAC = () => ({type: "CHANGE-CANVAS-STATUS"} as con
 export const changeCopyStatusAC = (status: boolean) => ({type: "CHANGE-COPY-STATUS", status} as const)
 export const addFigureAC = (x: number, y: number) => ({type: "ADD-FIGURE", x, y} as const)
 export const deleteFigureAC = () => ({type: "DELETE-FIGURE"} as const)
-export const chooseFigureAC = (figureId: string) => ({type: "CHOOSE-FIGURE", figureId} as const)
+export const chooseFigureAC = (figure: CanvasFigureType) => ({type: "CHOOSE-FIGURE", figure} as const)
 export const setFiguresAC = (figures: Array<CanvasFigureType>) => ({type: "SET-FIGURES", figures} as const)
 
 
@@ -65,7 +65,7 @@ type InitialStateType = {
     draggableFigureId: string
     copyStatus: boolean
     canvasFigures: Array<CanvasFigureType>
-    chooseFigureId: string
+    chooseFigure: CanvasFigureType
 }
 type ActionType = ReturnType<typeof dragStartedAC>
                 | ReturnType<typeof changeCanvasStatusAC>
