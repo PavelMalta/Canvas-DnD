@@ -2,12 +2,17 @@ import React, {DragEvent, useEffect, useRef, useState} from "react";
 import s from "../CanvasField.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../bll/store";
-import {addFigureAC, CanvasFigureType, chooseFigureAC, setFiguresAC} from "../../../../bll/figures-reducer";
-
-const width = 730;
-const height = 650;
+import {
+    addFigureAC,
+    CanvasFigureType,
+    chooseFigureAC,
+    deleteFigureAC,
+    setFiguresAC
+} from "../../../../bll/figures-reducer";
 
 export const Canvas = () => {
+    const width = 730;
+    const height = 650;
     const figureWidth = 100;
     const figureHeight = 100;
 
@@ -37,6 +42,11 @@ export const Canvas = () => {
         if (chooseFigure) {
             drawFigure(chooseFigure, ctx)
         }
+        document.onkeydown = e => {
+            if (e.key === 'Delete' && chooseFigure) {
+                dispatch(deleteFigureAC())
+            }
+        }
     }, [chooseFigure, canvasFigures])
 
 
@@ -56,14 +66,13 @@ export const Canvas = () => {
         }
         if (figure.type === "circle") {
             ctx.fillStyle = 'blue'
-            ctx.ellipse(
+            ctx.arc(
                 figure.x + figureWidth / 2,
                 figure.y + figureHeight / 2,
                 figureWidth / 2,
-                figureHeight / 2,
                 0,
-                0,
-                2 * Math.PI
+                2 * Math.PI,
+                true
             )
             ctx.fill()
             ctx.stroke();
