@@ -1,8 +1,8 @@
 import React, {DragEvent, useEffect, useRef, useState} from "react";
-import s from "../../CanvasField.module.css";
+import s from "../CanvasField.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../../../../bll/store";
-import {addFigureAC, CanvasFigureType, chooseFigureAC, setFiguresAC} from "../../../../../bll/figures-reducer";
+import {AppRootStateType} from "../../../../bll/store";
+import {addFigureAC, CanvasFigureType, chooseFigureAC, setFiguresAC} from "../../../../bll/figures-reducer";
 
 const width = 730;
 const height = 650;
@@ -126,7 +126,6 @@ export const Canvas = () => {
             dispatch(addFigureAC(x, y))
         }
     }
-
 
     return (
         <div className={s.canvasContainer}>

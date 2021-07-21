@@ -2,7 +2,7 @@ import React from "react";
 import s from "./CanvasField.module.css"
 import {useDispatch} from "react-redux";
 import {changeCopyStatusAC} from "../../../bll/figures-reducer";
-import {Canvas} from "./canvasFigure/canvas/Canvas";
+import {Canvas} from "./canvas/Canvas";
 
 export const CanvasField = () => {
 
