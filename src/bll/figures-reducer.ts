@@ -23,7 +23,9 @@ const initialState = {
     draggableFigureId: "",
     copyStatus: true,
     canvasFigures: [] as Array<CanvasFigureType>,
-    chooseFigure: {} as CanvasFigureType
+    chooseFigure: {} as CanvasFigureType,
+    isCursorOverCanvas: false,
+    mouseDown: true
 }
 
 export const figuresReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -44,6 +46,10 @@ export const figuresReducer = (state: InitialStateType = initialState, action: A
             return {...state, canvasFigures: state.canvasFigures.filter(i => i.id !== state.chooseFigure.id), chooseFigure: {} as CanvasFigureType}
         case "SET-FIGURES" :
             return {...state, canvasFigures: action.figures}
+        case "SET-IS-CURSOR" :
+            return {...state, isCursorOverCanvas: action.isCursorOverCanvas}
+        case "SET-MOUSE-DOWN" :
+            return {...state, mouseDown: action.mouseDown}
         default:
             return state
     }
@@ -57,6 +63,8 @@ export const addFigureAC = (x: number, y: number) => ({type: "ADD-FIGURE", x, y}
 export const deleteFigureAC = () => ({type: "DELETE-FIGURE"} as const)
 export const chooseFigureAC = (figure: CanvasFigureType) => ({type: "CHOOSE-FIGURE", figure} as const)
 export const setFiguresAC = (figures: Array<CanvasFigureType>) => ({type: "SET-FIGURES", figures} as const)
+export const setIsCursorAC = (isCursorOverCanvas: boolean) => ({type: "SET-IS-CURSOR", isCursorOverCanvas} as const)
+export const setMouseDownAC = (mouseDown: boolean) => ({type: "SET-MOUSE-DOWN", mouseDown} as const)
 
 
 //Types
@@ -66,6 +74,8 @@ type InitialStateType = {
     copyStatus: boolean
     canvasFigures: Array<CanvasFigureType>
     chooseFigure: CanvasFigureType
+    isCursorOverCanvas: boolean
+    mouseDown: boolean
 }
 type ActionType = ReturnType<typeof dragStartedAC>
                 | ReturnType<typeof changeCanvasStatusAC>
@@ -74,6 +84,8 @@ type ActionType = ReturnType<typeof dragStartedAC>
                 | ReturnType<typeof deleteFigureAC>
                 | ReturnType<typeof chooseFigureAC>
                 | ReturnType<typeof setFiguresAC>
+                | ReturnType<typeof setIsCursorAC>
+                | ReturnType<typeof setMouseDownAC>
 
 export type FigureType = {
     id: string

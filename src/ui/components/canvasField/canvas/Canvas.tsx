@@ -1,4 +1,4 @@
-import React, {DragEvent, useEffect, useRef, useState} from "react";
+import React, {DragEvent, useEffect, useRef} from "react";
 import s from "../CanvasField.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../../bll/store";
@@ -7,7 +7,7 @@ import {
     CanvasFigureType,
     chooseFigureAC,
     deleteFigureAC,
-    setFiguresAC
+    setFiguresAC, setIsCursorAC, setMouseDownAC
 } from "../../../../bll/figures-reducer";
 
 export const Canvas = () => {
@@ -18,11 +18,11 @@ export const Canvas = () => {
 
     //HOOK
     const canvasRef = useRef<any>(null)
-    const [mouseDown, setMouseDown] = useState(true)
     const dispatch = useDispatch()
     const canvasFigures = useSelector<AppRootStateType, Array<CanvasFigureType>>(state => state.figures.canvasFigures)
     const chooseFigure = useSelector<AppRootStateType, CanvasFigureType>(state => state.figures.chooseFigure)
     const copyStatus = useSelector<AppRootStateType, boolean>(state => state.figures.copyStatus)
+    const mouseDown = useSelector<AppRootStateType, boolean>( state => state.figures.mouseDown)
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -42,7 +42,7 @@ export const Canvas = () => {
         if (chooseFigure) {
             drawFigure(chooseFigure, ctx)
         }
-        document.onkeydown = e => {
+        document.onkeydown = (e) => {
             if (e.key === 'Delete' && chooseFigure) {
                 dispatch(deleteFigureAC())
             }
@@ -92,9 +92,8 @@ export const Canvas = () => {
         const y = e.pageY - canvasRef.current.offsetTop
 
         let isCursorOnAnyFigure = false
-        setMouseDown(true)
+        dispatch(setMouseDownAC(true))
         canvasFigures.forEach(figure => {
-            // @ts-ignore
             if (cursorInFigure(x, y, figure)) {
                 dispatch(chooseFigureAC(figure))
                 isCursorOnAnyFigure = true;
@@ -107,7 +106,7 @@ export const Canvas = () => {
 
     }
     const onMouseUp = () => {
-        setMouseDown(false)
+        dispatch(setMouseDownAC(false))
     }
     const onMouseMove = (e: any) => {
         e.stopPropagation()
@@ -136,6 +135,14 @@ export const Canvas = () => {
         }
     }
 
+    const onMouseEnter = (e: any) => {
+        dispatch(setIsCursorAC(true))
+    }
+
+    const onMouseOut = (e: any) => {
+        dispatch(setIsCursorAC(false))
+    }
+
     return (
         <div className={s.canvasContainer}>
             <canvas ref={canvasRef}
@@ -144,6 +151,8 @@ export const Canvas = () => {
                     onMouseUp={onMouseUp}
                     onMouseMove={onMouseMove}
                     onDrop={onDrop}
+                    onMouseEnter={onMouseEnter}
+                    onMouseOut={onMouseOut}
                     width={width}
                     height={height}
             />
